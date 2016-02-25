@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[    856391,      14339]
-NotebookOptionsPosition[    853925,      14251]
-NotebookOutlinePosition[    854291,      14267]
-CellTagsIndexPosition[    854248,      14264]
+NotebookDataLength[    863018,      14525]
+NotebookOptionsPosition[    859930,      14420]
+NotebookOutlinePosition[    860295,      14436]
+CellTagsIndexPosition[    860252,      14433]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -297,15 +297,30 @@ Cell[BoxData[
         "\[IndentingNewLine]", 
         RowBox[{
          RowBox[{"recording", "=", "False"}], ";", "\[IndentingNewLine]", 
-         RowBox[{"FrontEndExecute", "[", 
-          RowBox[{"FrontEnd`RecordSound", "[", "2", "]"}], "]"}], ";", 
-         "\[IndentingNewLine]", 
-         RowBox[{"Print", "[", 
-          RowBox[{"VoiceToText", "[", 
+         RowBox[{"Module", "[", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{"sound", ",", "text", ",", "interpretation"}], "}"}], ",",
+            "\[IndentingNewLine]", 
            RowBox[{
             RowBox[{"FrontEndExecute", "[", 
-             RowBox[{"FrontEnd`RecordSound", "[", "3", "]"}], "]"}], ",", 
-            "token"}], "]"}], "]"}], ";", "\[IndentingNewLine]", 
+             RowBox[{"FrontEnd`RecordSound", "[", "2", "]"}], "]"}], ";", 
+            "\[IndentingNewLine]", 
+            RowBox[{"sound", "=", 
+             RowBox[{"FrontEndExecute", "[", 
+              RowBox[{"FrontEnd`RecordSound", "[", "3", "]"}], "]"}]}], ";", 
+            "\[IndentingNewLine]", 
+            RowBox[{"text", "=", 
+             RowBox[{"VoiceToText", "[", 
+              RowBox[{"sound", ",", "token"}], "]"}]}], ";", 
+            "\[IndentingNewLine]", 
+            RowBox[{"Print", "[", 
+             RowBox[{"\"\<Text: \>\"", ",", "text"}], "]"}], ";", 
+            "\[IndentingNewLine]", 
+            RowBox[{"Print", "[", 
+             RowBox[{"\"\<Interpretation: \>\"", ",", 
+              RowBox[{"SemanticInterpretation", "[", "text", "]"}]}], "]"}], 
+            ";"}]}], "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
          RowBox[{"label", "=", "\"\<Speak\>\""}], ";"}], 
         "\[IndentingNewLine]", ",", "\[IndentingNewLine]", 
         RowBox[{"Module", "[", 
@@ -351,7 +366,7 @@ Cell[BoxData[
    3.6085535470578513`*^9}, 3.6085536002688627`*^9, {3.665421381212451*^9, 
    3.6654213836706543`*^9}, {3.665421414325553*^9, 3.665421418556652*^9}, {
    3.6654221230864105`*^9, 3.665422128974805*^9}, {3.6654224148290043`*^9, 
-   3.6654224323168983`*^9}}],
+   3.6654224323168983`*^9}, {3.6654231928445315`*^9, 3.665423327234572*^9}}],
 
 Cell[CellGroupData[{
 
@@ -368,12 +383,15 @@ Cell[BoxData[
    Appearance->Automatic,
    ButtonFunction:>If[
      TrueQ[$CellContext`recording$$], $CellContext`recording$$ = False; 
-     FrontEndExecute[
-       FrontEnd`RecordSound[2]]; Print[
-       $CellContext`VoiceToText[
-        FrontEndExecute[
-         FrontEnd`RecordSound[3]], $CellContext`token]]; $CellContext`label$$ = 
-      "Speak"; Null, 
+     Module[{$CellContext`sound, $CellContext`text, \
+$CellContext`interpretation}, FrontEndExecute[
+         FrontEnd`RecordSound[2]]; $CellContext`sound = FrontEndExecute[
+          FrontEnd`RecordSound[
+          3]]; $CellContext`text = \
+$CellContext`VoiceToText[$CellContext`sound, $CellContext`token]; 
+       Print["Text: ", $CellContext`text]; Print["Interpretation: ", 
+         SemanticInterpretation[$CellContext`text]]; 
+       Null]; $CellContext`label$$ = "Speak"; Null, 
      Module[{$CellContext`devices$, $CellContext`device$, \
 $CellContext`formats$, $CellContext`format$}, $CellContext`recording$$ = 
        True; $CellContext`devices$ = FrontEndExecute[
@@ -388,10 +406,161 @@ $CellContext`formats$, $CellContext`format$}, $CellContext`recording$$ =
    Evaluator->Automatic,
    Method->"Queued"],
   DynamicModuleValues:>{}]], "Output",
- CellChangeTimes->{{3.6654224201265163`*^9, 3.6654224376729403`*^9}}],
+ CellChangeTimes->{{3.6654224201265163`*^9, 3.6654224376729403`*^9}, 
+   3.6654232444052577`*^9, {3.665423303103263*^9, 3.6654233300473223`*^9}}],
 
-Cell[BoxData["\<\"Hello this is a test.\"\>"], "Print",
- CellChangeTimes->{3.6654224440373664`*^9}]
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Text: \"\>", 
+   "\[InvisibleSpace]", "\<\"Population of chicago.\"\>"}],
+  SequenceForm["Text: ", "Population of chicago."],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.6654233552598543`*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Interpretation: \"\>", "\[InvisibleSpace]", 
+   TemplateBox[{"2722389","\"people\"","people","\"People\""},
+    "Quantity"]}],
+  SequenceForm["Interpretation: ", 
+   Quantity[2722389, "People"]],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.66542336037488*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Text: \"\>", 
+   "\[InvisibleSpace]", "\<\"Latitude of new york.\"\>"}],
+  SequenceForm["Text: ", "Latitude of new york."],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.6654237859302635`*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Interpretation: \"\>", "\[InvisibleSpace]", 
+   TemplateBox[{
+    "40.6642738`",RowBox[{"\[InvisibleSpace]", "\"\[Degree]\""}],"degrees",
+     "\"AngularDegrees\""},
+    "QuantityPostfix"]}],
+  SequenceForm["Interpretation: ", 
+   Quantity[40.6642738, "AngularDegrees"]],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.665423789795432*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Text: \"\>", 
+   "\[InvisibleSpace]", "\<\"Calories in an apple.\"\>"}],
+  SequenceForm["Text: ", "Calories in an apple."],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.6654238028197336`*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Interpretation: \"\>", "\[InvisibleSpace]", 
+   TemplateBox[{
+    "0.655737704918033`",
+     RowBox[{"\"Cal\"", "\[InvisibleSpace]", "\"/\"", "\[InvisibleSpace]", 
+       "\"g\""}],"dietary Calories per gram",FractionBox[
+     "\"LargeCalories\"", "\"Grams\""]},
+    "Quantity"]}],
+  SequenceForm["Interpretation: ", 
+   Quantity[0.655737704918033, "Grams"^(-1) "LargeCalories"]],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.665423806790073*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Text: \"\>", 
+   "\[InvisibleSpace]", "\<\"Volume of lake erie.\"\>"}],
+  SequenceForm["Text: ", "Volume of lake erie."],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.665423853773261*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Interpretation: \"\>", "\[InvisibleSpace]", 
+   TemplateBox[{"1.6174117358441775`*^13",RowBox[{
+       SuperscriptBox["\"ft\"", "3"]}],"feet cubed",SuperscriptBox[
+     "\"Feet\"", "3"]},
+    "Quantity"]}],
+  SequenceForm["Interpretation: ", 
+   Quantity[1.6174117358441775`*^13, "Feet"^3]],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.665423857086269*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Text: \"\>", "\[InvisibleSpace]", "\<\"Gdp of russia.\"\>"}],
+  SequenceForm["Text: ", "Gdp of russia."],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.665423877711749*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Interpretation: \"\>", "\[InvisibleSpace]", 
+   TemplateBox[{"1.86059792276344`*^12",RowBox[{
+       FormBox["\"$\"", TraditionalForm], "\[VeryThinSpace]"}],
+     RowBox[{"\"per \"", "\[InvisibleSpace]", "\"year\""}],
+     "US dollars per year",FractionBox["\"USDollars\"", "\"Years\""]},
+    "QuantityPrefixUnit"]}],
+  SequenceForm["Interpretation: ", 
+   Quantity[1.86059792276344*^12, "USDollars"/"Years"]],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.6654238782048473`*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Text: \"\>", 
+   "\[InvisibleSpace]", "\<\"Gdp of russia divided by gdp of united states.\"\
+\>"}],
+  SequenceForm["Text: ", "Gdp of russia divided by gdp of united states."],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.665423911044062*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Interpretation: \"\>", "\[InvisibleSpace]", 
+   "0.10681427881987715`"}],
+  SequenceForm["Interpretation: ", 0.10681427881987715`],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.6654239137832623`*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Text: \"\>", 
+   "\[InvisibleSpace]", "\<\"Forty two times forty two.\"\>"}],
+  SequenceForm["Text: ", "Forty two times forty two."],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.6654239302778873`*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Interpretation: \"\>", "\[InvisibleSpace]", "1764"}],
+  SequenceForm["Interpretation: ", 1764],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.665423930877023*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Text: \"\>", 
+   "\[InvisibleSpace]", "\<\"Six feet plus ten inches.\"\>"}],
+  SequenceForm["Text: ", "Six feet plus ten inches."],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.6654239467886343`*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Interpretation: \"\>", "\[InvisibleSpace]", 
+   TemplateBox[{"82","\"in\"","inches","\"Inches\""},
+    "Quantity"]}],
+  SequenceForm["Interpretation: ", 
+   Quantity[82, "Inches"]],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.66542394774942*^9}]
+}, Open  ]]
 }, Open  ]]
 }, Open  ]],
 
@@ -14246,10 +14415,10 @@ Cell[BoxData[
 Cell[BoxData["\<\"Hello this is a test.\"\>"], "Output",
  CellChangeTimes->{3.6654223718357954`*^9}]
 }, Open  ]]
-}, Open  ]]
+}, Closed]]
 }, Open  ]]
 },
-WindowSize->{1436, 856},
+WindowSize->{830, 849},
 WindowMargins->{{0, Automatic}, {Automatic, 0}},
 ShowSelection->True,
 FrontEndVersion->"10.4 for Microsoft Windows (64-bit) (February 24, 2016)",
@@ -14294,52 +14463,69 @@ Cell[5384, 159, 4663, 111, 632, "Input"]
 }, Open  ]],
 Cell[CellGroupData[{
 Cell[10096, 276, 92, 1, 70, "Section"],
-Cell[10191, 279, 3483, 74, 412, "Input"],
+Cell[10191, 279, 4230, 89, 512, "Input"],
 Cell[CellGroupData[{
-Cell[13699, 357, 122, 2, 31, "Input"],
-Cell[13824, 361, 1327, 29, 42, "Output"],
-Cell[15154, 392, 99, 1, 23, "Print"]
-}, Open  ]]
-}, Open  ]],
+Cell[14446, 372, 122, 2, 31, "Input"],
+Cell[14571, 376, 1667, 33, 42, "Output"],
 Cell[CellGroupData[{
-Cell[15302, 399, 150, 2, 70, "Section"],
-Cell[15455, 403, 125, 1, 30, "Text"],
-Cell[CellGroupData[{
-Cell[15605, 408, 209, 4, 31, "Input"],
-Cell[15817, 414, 250, 5, 31, "Output"]
-}, Open  ]],
-Cell[16082, 422, 105, 1, 30, "Text"],
-Cell[CellGroupData[{
-Cell[16212, 427, 255, 6, 31, "Input"],
-Cell[16470, 435, 110, 1, 31, "Output"]
-}, Open  ]],
-Cell[16595, 439, 126, 1, 30, "Text"],
-Cell[CellGroupData[{
-Cell[16746, 444, 293, 6, 31, "Input"],
-Cell[17042, 452, 1297, 21, 92, "Output"]
-}, Open  ]],
-Cell[18354, 476, 116, 1, 30, "Text"],
-Cell[CellGroupData[{
-Cell[18495, 481, 382, 8, 31, "Input"],
-Cell[18880, 491, 175, 2, 31, "Output"]
-}, Open  ]],
-Cell[19070, 496, 165, 3, 30, "Text"],
-Cell[19238, 501, 275, 6, 31, "Input"],
-Cell[CellGroupData[{
-Cell[19538, 511, 115, 2, 31, "Input"],
-Cell[19656, 515, 402, 6, 31, "Output"]
-}, Open  ]],
-Cell[20073, 524, 103, 1, 30, "Text"],
-Cell[CellGroupData[{
-Cell[20201, 529, 309, 6, 31, "Input"],
-Cell[20513, 537, 832959, 13695, 130, "Output"]
-}, Open  ]],
-Cell[853487, 14235, 105, 1, 30, "Text"],
-Cell[CellGroupData[{
-Cell[853617, 14240, 165, 3, 31, "Input"],
-Cell[853785, 14245, 100, 1, 31, "Output"]
+Cell[16263, 413, 248, 6, 23, "Print"],
+Cell[16514, 421, 315, 8, 32, "Print"],
+Cell[16832, 431, 246, 6, 23, "Print"],
+Cell[17081, 439, 392, 10, 31, "Print"],
+Cell[17476, 451, 246, 6, 23, "Print"],
+Cell[17725, 459, 501, 12, 32, "Print"],
+Cell[18229, 473, 242, 6, 23, "Print"],
+Cell[18474, 481, 412, 10, 35, "Print"],
+Cell[18889, 493, 226, 5, 23, "Print"],
+Cell[19118, 500, 533, 11, 36, "Print"],
+Cell[19654, 513, 296, 7, 23, "Print"],
+Cell[19953, 522, 254, 6, 23, "Print"],
+Cell[20210, 530, 256, 6, 23, "Print"],
+Cell[20469, 538, 216, 5, 23, "Print"],
+Cell[20688, 545, 254, 6, 23, "Print"],
+Cell[20945, 553, 301, 8, 31, "Print"]
 }, Open  ]]
 }, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[21307, 568, 150, 2, 70, "Section"],
+Cell[21460, 572, 125, 1, 30, "Text"],
+Cell[CellGroupData[{
+Cell[21610, 577, 209, 4, 31, "Input"],
+Cell[21822, 583, 250, 5, 31, "Output"]
+}, Open  ]],
+Cell[22087, 591, 105, 1, 30, "Text"],
+Cell[CellGroupData[{
+Cell[22217, 596, 255, 6, 31, "Input"],
+Cell[22475, 604, 110, 1, 31, "Output"]
+}, Open  ]],
+Cell[22600, 608, 126, 1, 30, "Text"],
+Cell[CellGroupData[{
+Cell[22751, 613, 293, 6, 31, "Input"],
+Cell[23047, 621, 1297, 21, 92, "Output"]
+}, Open  ]],
+Cell[24359, 645, 116, 1, 30, "Text"],
+Cell[CellGroupData[{
+Cell[24500, 650, 382, 8, 31, "Input"],
+Cell[24885, 660, 175, 2, 31, "Output"]
+}, Open  ]],
+Cell[25075, 665, 165, 3, 30, "Text"],
+Cell[25243, 670, 275, 6, 31, "Input"],
+Cell[CellGroupData[{
+Cell[25543, 680, 115, 2, 31, "Input"],
+Cell[25661, 684, 402, 6, 31, "Output"]
+}, Open  ]],
+Cell[26078, 693, 103, 1, 30, "Text"],
+Cell[CellGroupData[{
+Cell[26206, 698, 309, 6, 31, "Input"],
+Cell[26518, 706, 832959, 13695, 130, "Output"]
+}, Open  ]],
+Cell[859492, 14404, 105, 1, 30, "Text"],
+Cell[CellGroupData[{
+Cell[859622, 14409, 165, 3, 31, "Input"],
+Cell[859790, 14414, 100, 1, 31, "Output"]
+}, Open  ]]
+}, Closed]]
 }, Open  ]]
 }
 ]
