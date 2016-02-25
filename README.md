@@ -23,26 +23,26 @@ people count (around 2.7 million).
 
 Sample results:
 
-Text: Population of chicago.
-Interpretation: 2722389 people
+    Text: Population of chicago.
+    Interpretation: 2722389 people
 
-Text: Latitude of new york.
-Interpretation: 40.6643 \[Degree]
+    Text: Latitude of new york.
+    Interpretation: 40.6643 \[Degree]
 
-Text: Calories in an apple.
-Interpretation: 0.655738Cal/g
+    Text: Calories in an apple.
+    Interpretation: 0.655738Cal/g
 
-Text: Volume of lake erie.
-Interpretation: 1.61741*10^13(ft)^3
+    Text: Volume of lake erie.
+    Interpretation: 1.61741*10^13(ft)^3
 
-Text: Gdp of russia.
-Interpretation: $ 1.8606*10^12 per year
+    Text: Gdp of russia.
+    Interpretation: $ 1.8606*10^12 per year
 
-Text: Gdp of russia divided by gdp of united states.
-Interpretation: 0.106814
+    Text: Gdp of russia divided by gdp of united states.
+    Interpretation: 0.106814
 
-Text: Forty two times forty two.
-Interpretation: 1764
+    Text: Forty two times forty two.
+    Interpretation: 1764
 
-Text: Six feet plus ten inches.
-Interpretation: 82in
+    Text: Six feet plus ten inches.
+    Interpretation: 82in
